@@ -1,0 +1,58 @@
+<div class="card">
+  <div class="card-body">
+    <kendo-grid
+      [data]="gridItems | async"
+      [height]="533"
+      [pageSize]="gridState.take"
+      [skip]="gridState.skip"
+      [sort]="gridState.sort"
+      [pageable]="true"
+      [sortable]="true"
+      (dataStateChange)="onStateChange($event)"
+      (edit)="editHandler($event)"
+      (cancel)="cancelHandler($event)"
+      (save)="saveHandler($event)"
+      (remove)="removeHandler($event)"
+      [navigable]="true"
+    >
+      <kendo-grid-column field="id" title="Id" [width]="40"></kendo-grid-column>
+
+      <kendo-grid-column
+        field="firstName"
+        title="First Name"
+      ></kendo-grid-column>
+      <kendo-grid-column field="lastName" title="Last Name"></kendo-grid-column>
+      <kendo-grid-column
+        field="email"
+        title="Email Address"
+      ></kendo-grid-column>
+      <kendo-grid-column
+        field="dob"
+        title="Date of Birth"
+        editor="date"
+      ></kendo-grid-column>
+      <kendo-grid-column
+        field="age"
+        title="Age"
+        [width]="70"
+      ></kendo-grid-column>
+
+      <kendo-grid-command-column title="Actions" [width]="170">
+        <ng-template kendoGridCellTemplate let-isNew="isNew">
+          <button kendoGridEditCommand [primary]="true">
+            <span class="k-icon k-i-edit"></span>
+          </button>
+          <button kendoGridRemoveCommand>
+            <span class="k-icon k-i-delete"></span>
+          </button>
+          <button kendoGridSaveCommand [disabled]="formGroup?.invalid">
+            {{ isNew ? "Add" : "Update" }}
+          </button>
+          <button kendoGridCancelCommand>
+            {{ isNew ? "Discard changes" : "Cancel" }}
+          </button>
+        </ng-template>
+      </kendo-grid-command-column>
+    </kendo-grid>
+  </div>
+</div>

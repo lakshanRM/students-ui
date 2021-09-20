@@ -13,6 +13,10 @@ import { ButtonsModule } from '@progress/kendo-angular-buttons';
 import { UploadComponent } from './upload/upload.component';
 import { UploadModule } from '@progress/kendo-angular-upload';
 
+import { APOLLO_OPTIONS } from 'apollo-angular';
+import { HttpLink } from 'apollo-angular/http';
+import { InMemoryCache } from '@apollo/client/core';
+
 @NgModule({
   declarations: [AppComponent, StudentComponent, UploadComponent],
   imports: [
@@ -24,7 +28,21 @@ import { UploadModule } from '@progress/kendo-angular-upload';
     ButtonsModule,
     UploadModule,
   ],
-  providers: [StudentService],
+  providers: [
+    StudentService,
+    {
+      provide: APOLLO_OPTIONS,
+      useFactory: (httpLink: HttpLink) => {
+        return {
+          cache: new InMemoryCache(),
+          link: httpLink.create({
+            uri: 'http://localhost:3000/graphql',
+          }),
+        };
+      },
+      deps: [HttpLink],
+    },
+  ],
   exports: [],
   bootstrap: [AppComponent],
 })

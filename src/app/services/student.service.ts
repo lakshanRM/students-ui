@@ -1,9 +1,5 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { environment } from 'src/environments/environment';
-import { map } from 'rxjs/operators';
-import { DataResult } from '@progress/kendo-data-query';
-import { Observable } from 'rxjs';
 import { Apollo, gql } from 'apollo-angular';
 import { GET_STUDENTS } from '../student/student.query';
 
@@ -20,7 +16,6 @@ export class StudentService {
   }
 
   update(updateStudent) {
-    let req = JSON.stringify(updateStudent);
     return this.apollo.mutate({
       mutation: gql`
         mutation {

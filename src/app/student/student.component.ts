@@ -4,7 +4,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 import { GridDataResult, PageChangeEvent } from '@progress/kendo-angular-grid';
 import { NotificationService } from '@progress/kendo-angular-notification';
-import { SortDescriptor, State } from '@progress/kendo-data-query';
+import { State } from '@progress/kendo-data-query';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { StudentService } from '../services/student.service';

@@ -70,7 +70,10 @@ export class StudentComponent implements OnInit {
     this.formGroup = new FormGroup({
       firstName: new FormControl(dataItem.firstName, Validators.required),
       lastName: new FormControl(dataItem.lastName, Validators.required),
-      email: new FormControl(dataItem.email, Validators.required),
+      email: new FormControl(dataItem.email, [
+        Validators.required,
+        Validators.email,
+      ]),
       dob: new FormControl(new Date(dataItem.dob), Validators.required),
     });
 

@@ -43,11 +43,6 @@ export class StudentComponent implements OnInit {
     this.getStudents();
   }
 
-  public handleSortChange(descriptor: SortDescriptor[]): void {
-    this.gridState.sort = descriptor;
-    this.getStudents();
-  }
-
   getStudents() {
     this.studentService
       .getAllStudents()

@@ -15,10 +15,21 @@ import { UploadModule } from '@progress/kendo-angular-upload';
 
 import { APOLLO_OPTIONS } from 'apollo-angular';
 import { HttpLink } from 'apollo-angular/http';
-import { InMemoryCache } from '@apollo/client/core';
+import { DefaultOptions, InMemoryCache } from '@apollo/client/core';
 import { environment } from 'src/environments/environment';
 import { NotificationModule } from '@progress/kendo-angular-notification';
+import { DialogModule } from '@progress/kendo-angular-dialog';
 
+const defaultOptions: DefaultOptions = {
+  watchQuery: {
+    fetchPolicy: 'no-cache',
+    errorPolicy: 'ignore',
+  },
+  query: {
+    fetchPolicy: 'no-cache',
+    errorPolicy: 'all',
+  },
+};
 
 @NgModule({
   declarations: [AppComponent, StudentComponent, UploadComponent],
@@ -31,6 +42,7 @@ import { NotificationModule } from '@progress/kendo-angular-notification';
     ButtonsModule,
     UploadModule,
     NotificationModule,
+    DialogModule,
   ],
   providers: [
     StudentService,
@@ -39,6 +51,7 @@ import { NotificationModule } from '@progress/kendo-angular-notification';
       useFactory: (httpLink: HttpLink) => {
         return {
           cache: new InMemoryCache(),
+          defaultOptions: defaultOptions,
           link: httpLink.create({
             uri: environment.GRAPHQL_URL,
           }),

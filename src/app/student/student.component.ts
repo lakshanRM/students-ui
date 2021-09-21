@@ -20,6 +20,8 @@ export class StudentComponent implements OnInit {
   private editedRowIndex: number;
   sub$ = new Subject();
   pipe = new DatePipe('en-US'); // Use your own locale
+  isConfirmActive = false;
+  selectdStudent: any;
 
   public gridState: State = {
     sort: [],
@@ -83,12 +85,7 @@ export class StudentComponent implements OnInit {
   }
 
   public saveHandler({ sender, rowIndex, formGroup, dataItem }) {
-    const student = formGroup.value;
-    student.id = dataItem.id;
-    student.age = this.studentService.getAge(dataItem.dob);
-    student.dob = this.pipe.transform(dataItem.dob, 'M/d/YYYY');
-
-    console.log('REQ :', student);
+    const student = this.formatStudent(formGroup, dataItem);
 
     this.studentService
       .update(student)
@@ -102,15 +99,17 @@ export class StudentComponent implements OnInit {
       });
   }
 
+  private formatStudent(formGroup: any, dataItem: any) {
+    const student = formGroup.value;
+    student.id = dataItem.id;
+    student.age = this.studentService.getAge(student.dob);
+    student.dob = this.pipe.transform(student.dob, 'M/d/YYYY');
+    return student;
+  }
+
   public removeHandler({ dataItem }) {
-    this.studentService
-      .deleteStudent(dataItem)
-      .pipe(takeUntil(this.sub$))
-      .subscribe((res) => {
-        if (res) {
-          this.getStudents();
-        }
-      });
+    this.selectdStudent = dataItem;
+    this.isConfirmActive = true;
   }
 
   private closeEditor(grid, rowIndex = this.editedRowIndex) {
@@ -129,6 +128,21 @@ export class StudentComponent implements OnInit {
       type: { style: 'info', icon: true },
       hideAfter: 5000,
     });
+  }
+
+  close(status) {
+    if (status == 'confirm') {
+      this.studentService
+        .deleteStudent(this.selectdStudent)
+        .pipe(takeUntil(this.sub$))
+        .subscribe((res) => {
+          if (res) {
+            this.getStudents();
+          }
+        });
+    }
+    this.selectdStudent = null;
+    this.isConfirmActive = false;
   }
 
   ngOnDestroy() {

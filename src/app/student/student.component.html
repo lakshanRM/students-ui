@@ -56,3 +56,13 @@
     </kendo-grid>
   </div>
 </div>
+
+<!-- Conform Dialog -->
+
+<kendo-dialog title="Please confirm" *ngIf="isConfirmActive">
+  <p>Are you sure you want to continue?</p>
+  <kendo-dialog-actions>
+    <button kendoButton (click)="close('decline')">No</button>
+    <button kendoButton (click)="close('confirm')" [primary]="true">Yes</button>
+  </kendo-dialog-actions>
+</kendo-dialog>

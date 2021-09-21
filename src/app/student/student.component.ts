@@ -107,11 +107,6 @@ export class StudentComponent implements OnInit {
     return student;
   }
 
-  public removeHandler({ dataItem }) {
-    this.selectdStudent = dataItem;
-    this.isConfirmActive = true;
-  }
-
   private closeEditor(grid, rowIndex = this.editedRowIndex) {
     grid.closeRow(rowIndex);
     this.editedRowIndex = undefined;
@@ -130,7 +125,12 @@ export class StudentComponent implements OnInit {
     });
   }
 
-  close(status) {
+  removeHandler({ dataItem }) {
+    this.selectdStudent = dataItem;
+    this.isConfirmActive = true;
+  }
+
+  removeStudentRow(status) {
     if (status == 'confirm') {
       this.studentService
         .deleteStudent(this.selectdStudent)

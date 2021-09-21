@@ -1,0 +1,28 @@
+#file-upload {
+  position: absolute;
+  z-index: -1;
+  bottom: 0px;
+  right: 0;
+  visibility: hidden;
+}
+
+.file-upload {
+  border: 1px solid #ddd;
+  margin-bottom: 10px;
+  background-color: #fff;
+  padding: 10px 15px;
+  border-radius: 5px;
+  max-width: 600px;
+  font-size: 14px;
+
+  .btn {
+    margin-right: 10px;
+  }
+
+  .btn-primary {
+    color: #fff;
+    background-color: #fb6257;
+    border-color: #fb6257;
+    font-size: 14px;
+  }
+}

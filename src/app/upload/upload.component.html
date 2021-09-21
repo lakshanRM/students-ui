@@ -1,8 +1,12 @@
-<div class="row">
-  <div class="col-4">
-    <div class="mb-3">
-      <kendo-upload [saveUrl]="uploadSaveUrl" [removeUrl]="uploadRemoveUrl">
-      </kendo-upload>
-    </div>
-  </div>
+<div class="file-upload">
+  <label for="file-upload"
+    ><span class="btn btn-primary">{{ fileUploadStatus }}</span>
+    <span>{{ selectedFileName }}</span></label
+  >
+  <input
+    type="file"
+    id="file-upload"
+    (change)="uploadFile($event)"
+    #inputFile
+  />
 </div>

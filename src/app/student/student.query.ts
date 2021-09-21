@@ -6,6 +6,7 @@ export const GET_STUDENTS = gql`
       id
       firstName
       lastName
+      email
       dob
       age
     }

@@ -16,6 +16,9 @@ import { UploadModule } from '@progress/kendo-angular-upload';
 import { APOLLO_OPTIONS } from 'apollo-angular';
 import { HttpLink } from 'apollo-angular/http';
 import { InMemoryCache } from '@apollo/client/core';
+import { environment } from 'src/environments/environment';
+import { NotificationModule } from '@progress/kendo-angular-notification';
+
 
 @NgModule({
   declarations: [AppComponent, StudentComponent, UploadComponent],
@@ -27,6 +30,7 @@ import { InMemoryCache } from '@apollo/client/core';
     GridModule,
     ButtonsModule,
     UploadModule,
+    NotificationModule,
   ],
   providers: [
     StudentService,
@@ -36,7 +40,7 @@ import { InMemoryCache } from '@apollo/client/core';
         return {
           cache: new InMemoryCache(),
           link: httpLink.create({
-            uri: 'http://localhost:3000/graphql',
+            uri: environment.GRAPHQL_URL,
           }),
         };
       },

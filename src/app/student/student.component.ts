@@ -3,10 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 import { GridDataResult, PageChangeEvent } from '@progress/kendo-angular-grid';
 import { SortDescriptor, State } from '@progress/kendo-data-query';
-import { Observable } from 'rxjs';
 import { StudentService } from '../services/student.service';
-import { Apollo, gql } from 'apollo-angular';
-import { GET_STUDENTS } from './student.query';
 
 @Component({
   selector: 'app-student',
@@ -24,7 +21,7 @@ export class StudentComponent implements OnInit {
     take: 10,
   };
 
-  constructor(private studentService: StudentService, private apollo: Apollo) {}
+  constructor(private studentService: StudentService) {}
 
   ngOnInit(): void {
     this.getStudents();
@@ -41,16 +38,12 @@ export class StudentComponent implements OnInit {
   }
 
   getStudents() {
-    this.apollo
-      .watchQuery({
-        query: GET_STUDENTS,
-      })
-      .valueChanges.subscribe((result: any) => {
-        this.gridItems = {
-          data: result.data.students,
-          total: result.data.students.length,
-        };
-      });
+    this.studentService.getAllStudents().subscribe((result: any) => {
+      this.gridItems = {
+        data: result.data.students,
+        total: result.data.students.length,
+      };
+    });
   }
 
   public onStateChange(state: State) {
@@ -68,7 +61,6 @@ export class StudentComponent implements OnInit {
     });
 
     this.editedRowIndex = rowIndex;
-
     sender.editRow(rowIndex, this.formGroup);
   }
 
@@ -83,7 +75,7 @@ export class StudentComponent implements OnInit {
   }
 
   public removeHandler({ dataItem }) {
-    // this.editService.remove(dataItem);
+    this.studentService.deleteStudent(dataItem);
   }
 
   private closeEditor(grid, rowIndex = this.editedRowIndex) {

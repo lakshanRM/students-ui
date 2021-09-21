@@ -8,7 +8,7 @@
       [sort]="gridState.sort"
       [pageable]="true"
       [sortable]="true"
-      (dataStateChange)="onStateChange($event)"
+      (pageChange)="pageChange($event)"
       (edit)="editHandler($event)"
       (cancel)="cancelHandler($event)"
       (save)="saveHandler($event)"

@@ -56,15 +56,13 @@ export class StudentComponent implements OnInit {
         console.log('FROM API : ', result.data.students);
 
         this.gridItems = {
-          data: result.data.students,
+          data: result.data.students.slice(
+            this.gridState.skip,
+            this.gridState.skip + this.gridState.take
+          ),
           total: result.data.students.length,
         };
       });
-  }
-
-  public onStateChange(state: State) {
-    // this.gridState = state;
-    // this.editService.read();
   }
 
   public editHandler({ sender, rowIndex, dataItem }) {

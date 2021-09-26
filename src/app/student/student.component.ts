@@ -48,8 +48,6 @@ export class StudentComponent implements OnInit {
       .getAllStudents()
       .pipe(takeUntil(this.sub$))
       .subscribe((result: any) => {
-        console.log('FROM API : ', result.data.students);
-
         this.gridItems = {
           data: result.data.students.slice(
             this.gridState.skip,
@@ -86,10 +84,21 @@ export class StudentComponent implements OnInit {
     this.studentService
       .update(student)
       .pipe(takeUntil(this.sub$))
-      .subscribe((res) => {
-        if (res) {
-          this.showNotification();
+      .subscribe((res: any) => {
+        if (
+          res &&
+          res.data &&
+          res.data.updateStudent &&
+          res.data.updateStudent.id
+        ) {
+          this.showNotification(`Student record has been updated.`, 'info');
           this.getStudents();
+          sender.closeRow(rowIndex);
+        } else {
+          this.showNotification(
+            `Something went worng, Please try agin later.`,
+            'error'
+          );
           sender.closeRow(rowIndex);
         }
       });
@@ -109,14 +118,14 @@ export class StudentComponent implements OnInit {
     this.formGroup = undefined;
   }
 
-  showNotification() {
+  showNotification(msg, type) {
     this.notificationService.show({
-      content: `Student record has been updated.`,
+      content: msg,
       cssClass: 'button-notification',
       width: 300,
       animation: { type: 'slide', duration: 800 },
       position: { horizontal: 'right', vertical: 'top' },
-      type: { style: 'info', icon: true },
+      type: { style: type, icon: true },
       hideAfter: 5000,
     });
   }
@@ -131,9 +140,20 @@ export class StudentComponent implements OnInit {
       this.studentService
         .deleteStudent(this.selectdStudent)
         .pipe(takeUntil(this.sub$))
-        .subscribe((res) => {
-          if (res) {
+        .subscribe((res: any) => {
+          if (
+            res &&
+            res.data &&
+            res.data.removeStudent &&
+            res.data.removeStudent.firstName
+          ) {
+            this.showNotification(`Student has been removed.`, 'info');
             this.getStudents();
+          } else {
+            this.showNotification(
+              `Something went worng, Please try agin later.`,
+              'error'
+            );
           }
         });
     }

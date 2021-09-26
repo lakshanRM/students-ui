@@ -41,6 +41,8 @@
     "@progress/kendo-licensing": "^1.0.2",
     "@progress/kendo-theme-default": "^4.41.2",
     "apollo-angular": "^2.6.0",
+    "apollo-link-error": "^1.1.13",
+    "apollo-link-http": "^1.5.17",
     "bootstrap": "^5.1.1",
     "graphql": "^15.5.3",
     "rxjs": "~6.6.0",

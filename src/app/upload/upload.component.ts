@@ -30,12 +30,16 @@ export class UploadComponent implements OnInit {
       this.uploadService
         .seedData(event.target.files[0])
         .subscribe((res: any) => {
-          //TODO : Handel error status
           if (res.status == 'success') {
             setTimeout(() => {
               this.resetFileUpload();
-              this.showNotification();
+              const msg = `File has been uploaded to the data. \n Please wait till data is been processed and update the records.`;
+              this.showNotification(msg, 'info');
             }, 500);
+          } else {
+            const msg = 'Something went wrong, Please try again later.';
+            this.showNotification(msg, 'error');
+            this.resetFileUpload();
           }
         });
     } else {
@@ -49,14 +53,14 @@ export class UploadComponent implements OnInit {
     this.myInputVariable.nativeElement.value = '';
   }
 
-  showNotification() {
+  showNotification(msg, type) {
     this.notificationService.show({
       content: `File has been uploaded to the data. \n Please wait till data is been processed and update the records.`,
       cssClass: 'button-notification',
       width: 300,
       animation: { type: 'slide', duration: 800 },
       position: { horizontal: 'right', vertical: 'top' },
-      type: { style: 'info', icon: true },
+      type: { style: type, icon: true },
       hideAfter: 5000,
     });
   }

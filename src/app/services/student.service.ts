@@ -21,8 +21,8 @@ export class StudentService {
         mutation {
           updateStudent(
             updateStudentInput: {
-              firstName: \"${updateStudent.firstName}\"
-              lastName: \"${updateStudent.lastName}\"
+              firstname: \"${updateStudent.firstName}\"
+              lastname: \"${updateStudent.lastName}\"
               email: \"${updateStudent.email}\"
               dob: \"${updateStudent.dob}\"
               id: ${updateStudent.id}
@@ -30,7 +30,7 @@ export class StudentService {
             }
           ) {
             id
-            firstName
+            firstname
           }
         }
       `,
@@ -42,7 +42,7 @@ export class StudentService {
       mutation: gql`
           mutation {
             removeStudent(id: ${student.id}) {
-              firstName
+                firstname
             }
           }
         `,

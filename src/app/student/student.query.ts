@@ -4,8 +4,8 @@ export const GET_STUDENTS = gql`
   {
     students {
       id
-      firstName
-      lastName
+      firstname
+      lastname
       email
       dob
       age

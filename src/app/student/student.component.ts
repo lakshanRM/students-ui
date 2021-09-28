@@ -71,8 +71,8 @@ export class StudentComponent implements OnInit {
   public editHandler({ sender, rowIndex, dataItem }) {
     this.closeEditor(sender);
     this.formGroup = new FormGroup({
-      firstName: new FormControl(dataItem.firstName, Validators.required),
-      lastName: new FormControl(dataItem.lastName, Validators.required),
+      firstname: new FormControl(dataItem.firstname, Validators.required),
+      lastname: new FormControl(dataItem.lastname, Validators.required),
       email: new FormControl(dataItem.email, [
         Validators.required,
         Validators.email,
@@ -155,7 +155,7 @@ export class StudentComponent implements OnInit {
             res &&
             res.data &&
             res.data.removeStudent &&
-            res.data.removeStudent.firstName
+            res.data.removeStudent.firstname
           ) {
             this.showNotification(`Student has been removed.`, 'info');
             this.getStudents();

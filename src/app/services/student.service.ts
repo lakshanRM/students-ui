@@ -21,8 +21,8 @@ export class StudentService {
         mutation {
           updateStudent(
             updateStudentInput: {
-              firstname: \"${updateStudent.firstName}\"
-              lastname: \"${updateStudent.lastName}\"
+              firstname: \"${updateStudent.firstname}\"
+              lastname: \"${updateStudent.lastname}\"
               email: \"${updateStudent.email}\"
               dob: \"${updateStudent.dob}\"
               id: ${updateStudent.id}

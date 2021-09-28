@@ -8,6 +8,7 @@ import { State } from '@progress/kendo-data-query';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { StudentService } from '../services/student.service';
+import { WebsocketService } from '../services/websocket.service';
 
 @Component({
   selector: 'app-student',
@@ -31,11 +32,20 @@ export class StudentComponent implements OnInit {
 
   constructor(
     private studentService: StudentService,
-    private notificationService: NotificationService
+    private notificationService: NotificationService,
+    private socketService: WebsocketService
   ) {}
 
   ngOnInit(): void {
     this.getStudents();
+
+    this.socketService
+      .getMessage()
+      .pipe(takeUntil(this.sub$))
+      .subscribe((res) => {
+        this.showNotification(`Students screation completed.`, 'success');
+        this.getStudents();
+      });
   }
 
   pageChange(event: PageChangeEvent): void {
@@ -159,6 +169,10 @@ export class StudentComponent implements OnInit {
     }
     this.selectdStudent = null;
     this.isConfirmActive = false;
+  }
+
+  send() {
+    this.socketService.sendMessage('Hello');
   }
 
   ngOnDestroy() {

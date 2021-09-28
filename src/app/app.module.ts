@@ -19,6 +19,8 @@ import { DefaultOptions, InMemoryCache } from '@apollo/client/core';
 import { environment } from 'src/environments/environment';
 import { NotificationModule } from '@progress/kendo-angular-notification';
 import { DialogModule } from '@progress/kendo-angular-dialog';
+import { SocketIoConfig, SocketIoModule } from 'ngx-socket-io';
+import { WebsocketService } from './services/websocket.service';
 
 const defaultOptions: DefaultOptions = {
   watchQuery: {
@@ -29,6 +31,11 @@ const defaultOptions: DefaultOptions = {
     fetchPolicy: 'no-cache',
     errorPolicy: 'all',
   },
+};
+
+const config: SocketIoConfig = {
+  url: 'http://localhost:3001',
+  options: { transports: ['websocket'] },
 };
 
 @NgModule({
@@ -43,9 +50,11 @@ const defaultOptions: DefaultOptions = {
     UploadModule,
     NotificationModule,
     DialogModule,
+    SocketIoModule.forRoot(config),
   ],
   providers: [
     StudentService,
+    WebsocketService,
     {
       provide: APOLLO_OPTIONS,
       useFactory: (httpLink: HttpLink) => {

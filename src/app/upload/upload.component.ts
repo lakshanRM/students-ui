@@ -31,11 +31,9 @@ export class UploadComponent implements OnInit {
         .seedData(event.target.files[0])
         .subscribe((res: any) => {
           if (res.status == 'success') {
-            setTimeout(() => {
-              this.resetFileUpload();
-              const msg = `File has been uploaded to the data. \n Please wait till data is been processed and update the records.`;
-              this.showNotification(msg, 'info');
-            }, 500);
+            this.resetFileUpload();
+            const msg = `File has been uploaded to the data. \n Please wait till data is been processed and update the records.`;
+            this.showNotification(msg, 'info');
           } else {
             const msg = 'Something went wrong, Please try again later.';
             this.showNotification(msg, 'error');

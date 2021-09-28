@@ -171,10 +171,6 @@ export class StudentComponent implements OnInit {
     this.isConfirmActive = false;
   }
 
-  send() {
-    this.socketService.sendMessage('Hello');
-  }
-
   ngOnDestroy() {
     this.sub$.next();
     this.sub$.complete();

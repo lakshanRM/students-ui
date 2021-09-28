@@ -7,10 +7,6 @@ import { Socket } from 'ngx-socket-io';
 })
 export class WebsocketService {
   constructor(private socket: Socket) {}
-
-  sendMessage(msg: string) {
-    this.socket.emit('message', msg);
-  }
   getMessage() {
     return this.socket.fromEvent('message').pipe(map((data: any) => data));
   }

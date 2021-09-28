@@ -39,6 +39,7 @@ export class StudentComponent implements OnInit {
   ngOnInit(): void {
     this.getStudents();
 
+    // Connecting with the socket to get the notification for the file upload success
     this.socketService
       .getMessage()
       .pipe(takeUntil(this.sub$))

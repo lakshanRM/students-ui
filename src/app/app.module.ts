@@ -34,7 +34,7 @@ const defaultOptions: DefaultOptions = {
 };
 
 const config: SocketIoConfig = {
-  url: 'http://localhost:3001',
+  url: environment.SOCKET_URL,
   options: { transports: ['websocket'] },
 };
 

@@ -18,7 +18,7 @@ import { WebsocketService } from '../services/websocket.service';
 export class StudentComponent implements OnInit {
   public gridItems: GridDataResult;
   public formGroup: FormGroup;
-  private editedRowIndex: number;
+  editedRowIndex: number;
   sub$ = new Subject();
   pipe = new DatePipe('en-US'); // Use your own locale
   isConfirmActive = false;
@@ -115,7 +115,7 @@ export class StudentComponent implements OnInit {
       });
   }
 
-  private formatStudent(formGroup: any, dataItem: any) {
+  formatStudent(formGroup: any, dataItem: any) {
     const student = formGroup.value;
     student.id = dataItem.id;
     student.age = this.studentService.getAge(student.dob);
@@ -123,7 +123,7 @@ export class StudentComponent implements OnInit {
     return student;
   }
 
-  private closeEditor(grid, rowIndex = this.editedRowIndex) {
+  closeEditor(grid, rowIndex = this.editedRowIndex) {
     grid.closeRow(rowIndex);
     this.editedRowIndex = undefined;
     this.formGroup = undefined;
